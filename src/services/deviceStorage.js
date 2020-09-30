@@ -11,7 +11,7 @@ const deviceStorage = {
 
   async loadJWT() {
     try {
-      const value = await AsyncStorage.getItem('id_token');
+      const value = await AsyncStorage.getItem('token');
       if (value !== null) {
         this.setState({
           jwt: value,
@@ -29,7 +29,7 @@ const deviceStorage = {
 
   async deleteJWT() {
     try{
-      await AsyncStorage.removeItem('id_token')
+      await AsyncStorage.removeItem('token')
       .then(
         () => {
           this.setState({

@@ -30,7 +30,7 @@ class Login extends Component {
     })
     .then((response) => {
       console.log(response);
-      deviceStorage.saveKey("id_token", response.data.jwt);
+      deviceStorage.saveKey("token", response.data.jwt);
       this.props.newJWT(response.data.jwt);
     })
     .catch((error) => {
