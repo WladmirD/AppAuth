@@ -8,26 +8,41 @@ export default class LoggedIn extends Component {
     super(props);
     this.state = {
       loading: true,
+      id:'',
+      firstname: '',
+      lastname: '',
       email: '',
+      default_company:'',
+      created_at:'',
+      updated_at:'',
       error: ''
     }
   }
 
   componentDidMount(){
     const headers = {
-      'Authorization': 'Bearer ' + this.props.token
+      'Authorization': 'Bearer ' + this.props.jwt
     };
+    
     axios({
       method: 'GET',
       url: 'https://apidev.kanvas.dev/v1/users',
       headers: headers,
     }).then((response) => {
-        console.log(response);
+        //console.log(response.data[0].id);      
       this.setState({
-        email: response,
+        
+        id:response.data[0].id,
+        firstname: response.data[0].firstname,
+        lastname: response.data[0].lastname,
+        email: response.data[0].email,
+        default_company:response.data[0].default_company,
+        created_at:response.data[0].created_at,
+        updated_at:response.data[0].updated_at,
         loading: false
       });
     }).catch((error) => {
+        //console.log(response.data)
       this.setState({
         error: 'Error retrieving data',
         loading: false
@@ -37,7 +52,7 @@ export default class LoggedIn extends Component {
 
   render() {
     const { container, emailText, errorText } = styles;
-    const { loading, email, error } = this.state;
+    const { loading, email, error, id, firstname, lastname, default_company, created_at, updated_at } = this.state;
 
     if (loading){
       return(
@@ -51,7 +66,13 @@ export default class LoggedIn extends Component {
             <View>
               {email ?
                 <Text style={emailText}>
-                  Your email: {email}
+                  id: {id} {"\n"}
+                  first name: {firstname}{"\n"}
+                  last name: { lastname }{"\n"}
+                  email: {email}{"\n"}
+                  company: {default_company}{"\n"}
+                  created: {created_at}{"\n"}
+                  updated: {updated_at}{"\n"}
                 </Text>
                 :
                 <Text style={errorText}>

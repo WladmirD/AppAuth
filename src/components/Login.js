@@ -19,7 +19,7 @@ class Login extends Component {
   }
 
   loginUser() {
-    const { email, password, password_confirmation } = this.state;
+    const { email, password, } = this.state;
 
     this.setState({ error: '', loading: true });
 
@@ -29,12 +29,13 @@ class Login extends Component {
         password: password
     })
     .then((response) => {
-      console.log(response.data.token);
+      //console.log(response.data.token);
       deviceStorage.saveKey("token", response.data.token);
       this.props.newJWT(response.data.token);
     })
     .catch((error) => {
-      console.log(error);
+      //console.log('aqui '+response)
+      //console.log(error);
       this.onLoginFail();
     });
   }
