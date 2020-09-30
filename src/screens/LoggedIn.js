@@ -15,7 +15,7 @@ export default class LoggedIn extends Component {
 
   componentDidMount(){
     const headers = {
-      'Authorization': 'Bearer ' + this.props.jwt
+      'Authorization': 'Bearer ' + this.props.token
     };
     axios({
       method: 'GET',
