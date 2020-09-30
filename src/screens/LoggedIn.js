@@ -28,8 +28,7 @@ export default class LoggedIn extends Component {
       method: 'GET',
       url: 'https://apidev.kanvas.dev/v1/users',
       headers: headers,
-    }).then((response) => {
-        //console.log(response.data[0].id);      
+    }).then((response) => {     
       this.setState({
         
         id:response.data[0].id,
@@ -42,9 +41,8 @@ export default class LoggedIn extends Component {
         loading: false
       });
     }).catch((error) => {
-        //console.log(response.data)
       this.setState({
-        error: 'Error retrieving data',
+        error: error.response.data.errors.message,
         loading: false
       });
     });

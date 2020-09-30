@@ -15,7 +15,6 @@ class Login extends Component {
     };
 
     this.loginUser = this.loginUser.bind(this);
-    this.onLoginFail = this.onLoginFail.bind(this);
   }
 
   loginUser() {
@@ -29,23 +28,19 @@ class Login extends Component {
         password: password
     })
     .then((response) => {
-      //console.log(response.data.token);
-      deviceStorage.saveKey("token", response.data.token);
-      this.props.newJWT(response.data.token);
+        deviceStorage.saveKey("token", response.data.token);
+        this.props.newJWT(response.data.token);
     })
     .catch((error) => {
-      //console.log('aqui '+response)
-      //console.log(error);
-      this.onLoginFail();
+      
+      this.setState({
+        error: error.response.data.errors.message,
+        loading: false
+      })
+
     });
   }
 
-  onLoginFail() {
-    this.setState({
-      error: 'Login Failed',
-      loading: false
-    });
-  }
 
   render() {
     const { email, password, error, loading } = this.state;

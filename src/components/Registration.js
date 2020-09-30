@@ -38,17 +38,13 @@ class Registration extends Component {
       deviceStorage.saveKey("token", response.data.token);
       this.props.newJWT(response.data.token);
     })
-    .catch((response) => {
-      //console.log('aqui '+ response);
-      this.onRegistrationFail();
+    .catch((error) => {
+      this.setState({
+        error: error.response.data.errors.message,
+        loading: false
+      })
     });
     
-  }
-  onRegistrationFail() {
-    this.setState({
-      error: 'Registration Failed',
-      loading: false
-    });
   }
 
   render() {
